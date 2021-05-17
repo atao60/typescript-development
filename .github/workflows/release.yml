@@ -1,0 +1,34 @@
+name: Create Release
+
+on:
+  push:
+    branches:
+      - 'releases/**'
+  
+jobs:
+  build:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Get tag name
+        id: get-tag-name
+        run: |
+          echo "github.ref: ${{ github.ref }}"
+          data=${{ github.ref }}
+          echo "::set-output name=tag-name::${data/refs\/heads\/releases\//}"
+          echo "tag-name: ${{ steps.get-tag-name.outputs.tag-name }}"
+      - name: Create Release
+        id: create-release
+        uses: actions/create-release@v1
+        env:
+          # This token is provided by Actions, you do not need to create your own token
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+        with:
+          tag_name: ${{ steps.get-tag-name.outputs.tag-name }}
+          release_name: Release ${{ steps.get-tag-name.outputs.tag-name }}
+          draft: false
+          prerelease: false
