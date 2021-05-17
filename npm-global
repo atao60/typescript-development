@@ -1,0 +1,10 @@
+typescript
+ts-node
+tslint
+eslint
+@babel
+@babel/cli @babel/core @babel/plugin-proposal-decorators @babel/preset-env @babel/preset-typescript @babel/register
+@types/core-js @types/babel-types
+@typescript-eslint/eslint-plugin @typescript-eslint/parser
+babel-plugin-module-resolver babel-plugin-node-source-map-support babel-plugin-transform-typescript-metadata
+eslint-config-node
